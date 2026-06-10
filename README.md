@@ -1,6 +1,12 @@
 # 🛡️ Credit Card Fraud Detection System
 
-An end-to-end machine learning pipeline for detecting fraudulent credit card transactions, built on the Kaggle Credit Card Fraud dataset. Features a Random Forest classifier with class imbalance handling, full evaluation suite, and an interactive Streamlit dashboard.
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3%2B-orange?style=flat-square&logo=scikit-learn)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.0%2B-red?style=flat-square&logo=streamlit)
+![Random Forest](https://img.shields.io/badge/Model-Random%20Forest-green?style=flat-square)
+![AUC-ROC](https://img.shields.io/badge/AUC--ROC-0.9946-brightgreen?style=flat-square)
+
+An end-to-end machine learning pipeline for detecting fraudulent credit card transactions. Built on the Kaggle Credit Card Fraud dataset with a Random Forest classifier, class imbalance handling, full evaluation suite, and an interactive Streamlit dashboard.
 
 ---
 
@@ -10,8 +16,8 @@ An end-to-end machine learning pipeline for detecting fraudulent credit card tra
 |---|---|
 | AUC-ROC | **0.9946** |
 | Average Precision | **0.9769** |
-| Fraud Recall | 0.71 |
 | Fraud Precision | 1.00 |
+| Fraud Recall | 0.71 |
 
 > Dataset: 284,807 transactions · 492 fraud cases · **0.17% fraud rate**
 
@@ -24,7 +30,6 @@ An end-to-end machine learning pipeline for detecting fraudulent credit card tra
 - **5-fold Stratified Cross-Validation** with AUC-ROC and Average Precision scoring
 - **Full evaluation suite** — ROC curve, Precision-Recall curve, Confusion Matrix, Classification Report
 - **Feature importance ranking** across all 30 features
-- **Model serialisation** via `joblib` for production deployment
 - **Interactive Streamlit dashboard** with live single-transaction predictor and batch prediction
 
 ---
@@ -32,13 +37,12 @@ An end-to-end machine learning pipeline for detecting fraudulent credit card tra
 ## 🗂️ Project Structure
 
 ```
-credit-card-fraud-detection/
+Credit-Card-Fraud-Detection/
 │
-├── creditcard.csv          # Dataset (download from Kaggle — see below)
-├── fraud_detection.py      # Core ML pipeline (terminal script)
-├── app.py                  # Streamlit web dashboard
-├── requirements.txt        # Python dependencies
-└── README.md
+├── app.py              ← Streamlit dashboard (main file)
+├── requirements.txt    ← Python dependencies
+├── README.md
+└── creditcard.csv      ← Dataset (download from Kaggle — see below)
 ```
 
 ---
@@ -48,8 +52,8 @@ credit-card-fraud-detection/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sahilsingh30/credit-card-fraud-detection.git
-cd credit-card-fraud-detection
+git clone https://github.com/sahilsingh30/Credit-Card-Fraud-Detection.git
+cd Credit-Card-Fraud-Detection
 ```
 
 ### 2. Create a virtual environment
@@ -72,31 +76,17 @@ pip install -r requirements.txt
 
 ### 4. Download the dataset
 
-Download `creditcard.csv` from [Kaggle Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) and place it in the project root.
+Download `creditcard.csv` from [Kaggle — Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) and place it in the project root folder.
 
 ---
 
-## ▶️ Usage
-
-### Option A — Run the terminal pipeline
-
-```bash
-python fraud_detection.py
-```
-
-Outputs:
-- Printed metrics (AUC-ROC, Average Precision, Confusion Matrix)
-- `fraud_rf_model.joblib` — serialised model
-- `fraud_scaler.joblib` — serialised scaler
-- `fraud_detection_results.png` — evaluation plots
-
-### Option B — Launch the Streamlit dashboard
+## ▶️ Run the App
 
 ```bash
 streamlit run app.py
 ```
 
-Opens at `http://localhost:8501`
+Opens automatically at `http://localhost:8501`
 
 ---
 
@@ -116,18 +106,18 @@ The Streamlit dashboard includes 4 tabs:
 ## 🧠 Model Details
 
 ```
-Algorithm   : Random Forest Classifier
-Estimators  : 100 trees
-Max Depth   : 12
-Class Weight: balanced  ← key for handling 0.17% fraud rate
-CV Strategy : StratifiedKFold (k=5)
-Test Size   : 20% (stratified)
-Random State: 42
+Algorithm    : Random Forest Classifier
+Estimators   : 100 trees
+Max Depth    : 12
+Class Weight : balanced  ← key for handling 0.17% fraud rate
+CV Strategy  : StratifiedKFold (k=5)
+Test Size    : 20% (stratified)
+Random State : 42
 ```
 
 ### Why `class_weight='balanced'`?
 
-With only 0.17% fraud rate, a naive model predicts "Legit" for everything and achieves 99.8% accuracy — completely useless. `class_weight='balanced'` automatically penalises misclassifying the minority (fraud) class by a factor proportional to its rarity, forcing the model to actually learn fraud patterns.
+With only 0.17% fraud rate, a naive model predicts "Legit" for everything and still achieves 99.8% accuracy — completely useless. `class_weight='balanced'` automatically penalises misclassifying the minority (fraud) class proportional to its rarity, forcing the model to actually learn fraud patterns.
 
 ---
 
@@ -161,7 +151,7 @@ pip install -r requirements.txt
 | `Amount` | Transaction amount in USD |
 | `Class` | Target — `0` = Legit, `1` = Fraud |
 
-> The dataset is not included in this repository due to its size (~150MB). Download it directly from Kaggle.
+> `creditcard.csv` is not included in this repository due to its size (~150MB). Download it from Kaggle and place it in the project root before running.
 
 ---
 
